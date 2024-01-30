@@ -1,6 +1,8 @@
 # ApiFront
 
 Versão do Angular: 17.1.1.
+Versão do Node.js: 18.16.0.
+Bootstrap instalado via npm: npm install bootstrap@5.3.2.
 
 ## Rodando o projeto
 
