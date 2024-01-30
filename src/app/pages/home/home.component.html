@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" style="cursor: pointer;">Posts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor: pointer;" (click) = "redirectUploadContent()">Criar novo post</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor: pointer;" (click) = "redirectProfilePage()">Meu perfil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor: pointer;" (click) = "onLogoff()">Desconectar</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="blog-feed">
+  <div *ngFor="let post of posts" class="post">
+    <div class="post-text">
+      <p class="post-creator" *ngIf="userAuthenticated.id != post.creator.id">Álbum criado por: {{post.creator.name}} (&#64;{{post.creator.username}})</p>
+      
+      <p class="post-creator" *ngIf="userAuthenticated.id == post.creator.id">Seu álbum: 
+        <img src="assets/delete.png" class="delete-post" (click)="deletePost(post.id)" style="cursor: pointer;">
+      </p>
+      <p>{{ post.content.text }}</p>
+    </div>
+    <div class="post-images" *ngIf="post.content.images.length > 0">
+      <div *ngFor="let image of post.content.images" class="image-container">
+        <img [src]="image" alt="Post Image" class="post-image">
+      </div>
+    </div>
+    
+    <div class="comments">
+      <ul>
+        <li *ngFor="let comment of post.comments">
+          <img src="assets/delete.png" class="delete-comment" *ngIf="userAuthenticated.id == comment.creator.id" (click)="deleteComment(comment.id)" style="cursor: pointer;">
+          {{comment.creator.name}}:  {{comment.text}}
+        </li>
+      </ul>
+    
+      <div class="add-comment">
+        <input  placeholder="Adicione um comentário"  name="newCommentText" [(ngModel)] = "newCommentText">
+        <button class="btn btn-outline-secondary mx-auto d-block" type="button" (click)="createComment(post.id)">Adicionar comentário</button>
+      </div>
+    </div> 
+  </div>
+</div>

@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+
+*, body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+.blog-feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.post {
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+.post-text {
+  padding: 16px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.post-images {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.image-container {
+  flex: 0 0 auto;
+  margin-right: 8px;
+  border-radius: 10px;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+.post-image {
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+  margin-left: 10px;  
+}
+
+.post-creator {
+  color: gray;
+}
+
+.comments {
+  margin-top: 16px;
+}
+
+.comments ul {
+  list-style-type: none;
+  padding: 15px;
+}
+
+.comments li {
+  background-color: #f8f9fa;
+  margin-bottom: 4px;
+  padding: 12px;
+  border-radius: 6px;
+  color: rgb(116, 116, 116);
+}
+
+.add-comment {
+  margin-top: 16px;
+  padding: 15px;
+}
+
+.add-comment input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+}
+
+.add-comment button{
+  margin-top: 10px;
+}
+
+.delete-comment{
+  width: 4%;
+  height: 4%;
+}
+
+.delete-post{
+  width: 5%;
+  height: 5%;
+  margin-left: 70%;
+}
+
+
