@@ -51,8 +51,22 @@ export class ProfileComponent {
     this.redirectHomePage();
   }
 
+  userToUpdate: any = {
+    "id": 0,
+    "name": "",
+    "username": "",
+    "email": "",
+    "password": ""
+  };
+
   updateUser(): void {
-    this.http.put(this.url, this.userAuthenticated).subscribe((response:any) => {
+    this.userToUpdate.id = this.userAuthenticated.id;
+    this.userToUpdate.name = this.userAuthenticated.name;
+    this.userToUpdate.username = this.userAuthenticated.username;
+    this.userToUpdate.email = this.userAuthenticated.email;
+    this.userToUpdate.password = this.userAuthenticated.password;
+
+    this.http.put(this.url, this.userToUpdate).subscribe((response:any) => {
       this.router.navigateByUrl('/posts');
     });
   }

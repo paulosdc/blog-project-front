@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Post } from '../../model/Post';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../../model/User';
 import { Comment } from '../../model/Comment';
@@ -39,20 +39,29 @@ export class HomeComponent {
 
   findPosts(): void {
     this.http.get<Post[]>(this.url).subscribe(results => {
-      const observables = results.map(post => 
-        forkJoin(post.content.images.map(image => this.getImageUrl(image)))
-          .pipe(
-            map(imageUrls => {
-              if(post.creator.id != undefined){
-                this.currentPostCreator = post.creator;
-              }else{
-                post.creator = this.currentPostCreator;
-              }
-              post.content.images = imageUrls;
-              return post;
-            })
-          )
-      );
+      const observables = results.map(post => {
+        if (post.content.images && post.content.images.length > 0) {
+          return forkJoin(post.content.images.map(image => this.getImageUrl(image)))
+            .pipe(
+              map(imageUrls => {
+                if (post.creator.id !== undefined) {
+                  this.currentPostCreator = post.creator;
+                } else {
+                  post.creator = this.currentPostCreator;
+                }
+                post.content.images = imageUrls;
+                return post;
+              })
+            );
+        } else {
+          if (post.creator.id !== undefined) {
+            this.currentPostCreator = post.creator;
+          } else {
+            post.creator = this.currentPostCreator;
+          }
+          return of(post);
+        }
+      });
   
       forkJoin(observables).subscribe(updatedPosts => {
         this.posts = updatedPosts.reverse();

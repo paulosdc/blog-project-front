@@ -58,5 +58,11 @@
 
 button{
     margin-top: 45px;
-    margin-left: 85px;
+    margin-left: 80px;
+}
+
+textarea{
+    white-space: pre-line; 
+    overflow-y: hidden; 
+    resize: none;
 }
